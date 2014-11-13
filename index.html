@@ -1,12 +1,21 @@
 <!doctype html>
 <html>
     <head>
-        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src='js/script.js'></script>
 
+
         <style>
-            table td { padding: 5px ; border: 1px solid black;}
+            body {margin: 30px 30px;}
+            table td { padding: 5px ; border: 1px solid #333333;}
+            #add {margin: 10px 0 30px; padding: 5px 9px 9px 5px; }
+            #edit_box {border:  1px dashed #333333; width: 40%; padding: 5px; }
+            /*TODO box invisible until add or edit clicked*/
+            .glyphicon {padding: 2px;}
 
         </style> 
     </head>
@@ -14,8 +23,11 @@
     <body>
         <h1>Employee List!</h1>
         <div id="employee_list"></div>
+        <!--//TODO add class .table and button group-->
 
-        <button id="add">Add Employee</button>
+        <button type="button" class="btn btn-default btn-info" id="add">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Employee</button>
+
 
         <div id = "edit_box">
 

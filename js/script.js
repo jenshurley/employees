@@ -1,13 +1,14 @@
 var employees = [
         {
             name : "David",
-            phone: "800-555-5555"
-
+            phone: "800-555-5555",
+            address: "123 Main Street, Denver, CO 80200"
         },
 
         {
             name : "Bob",
-            phone: "303-123-4567"
+            phone: "303-123-4567",
+            address: "123 Main Street, Broomfield, CO 80200"
 
         }
     ];
@@ -15,7 +16,7 @@ var employees = [
 
 
 /*
-                       d8b          
+                       d8b
                        Y8P          
                                     
 88888b.d88b.   8888b.  888 88888b.  
@@ -29,21 +30,23 @@ var employees = [
 
 
 $(document).ready(function(){
-    render_employee_table(employees)
+    render_employee_table(employees);
     
-
+    $('#edit_box').hide();
 
     $("#add").click(function() {
          console.log('clicked!');
-         render_edit_box('add');
+        $('#edit_box').slideUp(render_edit_box('add')).show();
+        //slide still not happening
+        // render_edit_box('add');
     });
 
 
 
-})
+});
+//what goes in the document.ready function?
 
-
-function terminate_employee(index){ 
+function delete_employee(index){
     console.log(index);
 
     employees.splice(index, 1);
@@ -61,28 +64,33 @@ function terminate_employee(index){
 function render_edit_box(type, employee, index){
     var pre_name = "";
     var pre_phone = "";
+    var pre_address = "";
 
     if (type == "edit") { 
         console.log(employee);
 
         pre_name = employee.name;
         pre_phone = employee.phone;
+        pre_address = employee.address;
     }
 
 
-    var html = '<div><label>name</label><input id="edit_name" value="' + pre_name + '"></div><div><label>phone</label> <input id="edit_phone" value="'+ pre_phone + '"></div>';
+    var html = ' <div class="input-group"><input type="text" class="form-control" placeholder="name"></div><div><label>name</label><input id="edit_name" value="' + pre_name + '"></div><div><label>phone</label> <input id="edit_phone" value="'+ pre_phone + '"></div><div><label>address</label> <input id="edit_address" value="'+ pre_address + '"></div>';
+    //TODO make input box for address wider. label above field. Need display to be block.?
 
     var button_name = type == "add" ? "add it" : "update it"; 
 
     html += "<button id='saveit'>"+ button_name + "</button>";
     
-    $('#edit_box').html(html); 
+    $('#edit_box').html(html);
+        //slideIn('fast');
 
 
     $('#saveit').click(function(){
         var e = { 
             name : $("#edit_name").val(),
-            phone: $("#edit_phone").val()
+            phone: $("#edit_phone").val(),
+            address: $("#edit_address").val()
         }
         if(type=="add") {
             add_employee(e);
@@ -127,7 +135,7 @@ function render_employee_table(data){
     console.log('render employee table')
     var html;
 
-    html = "<table>";
+    html = "<table><tr><th>Name</th><th>Phone</th><th>Address</th></tr>";
 
 
     data.forEach(function(employee, index){
@@ -135,6 +143,7 @@ function render_employee_table(data){
         html += "<tr>";
         html += "<td>"+ employee.name +"</td>";
         html += "<td>"+ employee.phone +"</td>";
+        html += "<td>"+ employee.address +"</td>";
         html += "<td><button class='delete' index='"+index+"'>Del</button></td>";
         html += "<td><button index="+ index +" class='edit'>Edit</button></td>";
 
@@ -148,7 +157,7 @@ function render_employee_table(data){
 
     $(".delete").click(function(){
        console.log('delete clicked');
-       terminate_employee($(this).attr("index"));
+       delete_employee($(this).attr("index"));
     });
 
     $('.edit').click(function(){
